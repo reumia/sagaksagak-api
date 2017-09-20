@@ -1,0 +1,32 @@
+{
+  "name": "sagaksagak-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -r babel-register index.js",
+    "start:prod": "node dist/index.js",
+    "build": "babel . --ignore node_modules,dist --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reumia/sagaksagak-api.git"
+  },
+  "author": "ZZOMAN (reumia@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reumia/sagaksagak-api/issues"
+  },
+  "homepage": "https://github.com/reumia/sagaksagak-api#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "nodemon": "^1.12.1"
+  }
+}
