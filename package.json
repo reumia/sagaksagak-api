@@ -27,6 +27,7 @@
     "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.1",
+    "cors": "^2.8.4",
     "express": "^4.15.4",
     "mysql": "^2.14.1",
     "nodemon": "^1.12.1",

@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import orm from 'orm'
+import cors from 'cors'
 import users from './routes/users'
 import comics from './routes/comics'
 import cuts from './routes/cuts'
@@ -16,6 +17,8 @@ app.use(orm.express(databaseConfig, {
         next()
     }
 }))
+
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
