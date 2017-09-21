@@ -1,5 +1,4 @@
 import express from 'express'
-import catchErrors from '../scripts/catchErrors'
 
 const router = express.Router()
 require('./middlewares')(router)
