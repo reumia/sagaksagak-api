@@ -1,11 +1,16 @@
 module.exports = (db, cb) => {
     db.define('comics', {
-        user_id: {type: 'integer'},
-        status_id: {type: 'integer'},
+        status: {type: 'enum', values: ['OPENED', 'CLOSED', 'BLOCKED']},
         title: {type: 'text'},
         descriptions: {type: 'text'},
         image_url: {type: 'text'},
         created_at: {type: 'date'}
+    }, {
+        hooks: {
+            beforeCreate: function () {
+                this.created_at = new Date()
+            }
+        }
     })
 
     cb()

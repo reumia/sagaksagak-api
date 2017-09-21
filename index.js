@@ -12,8 +12,6 @@ app.use(orm.express(databaseConfig, {
     define: (db, models, next) => {
         db.load('./models', (err) => {
             if (err) throw err
-
-            db.sync()
         })
         next()
     }
