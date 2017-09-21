@@ -24,6 +24,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2016": "^6.24.1",
     "babel-register": "^6.26.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mysql": "^2.14.1",

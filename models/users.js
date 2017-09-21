@@ -1,4 +1,5 @@
 import orm from 'orm'
+import bcrypt from 'bcrypt'
 
 module.exports = (db, cb) => {
     db.define('users', {
@@ -15,6 +16,15 @@ module.exports = (db, cb) => {
     }, {
         validations: {
             email: orm.enforce.unique('email is already exist!')
+        },
+        hooks: {
+            beforeSave: function () {
+                if (this.password) {
+                    console.log('Hashing password...')
+                    const salt = bcrypt.getSaltSync(10)
+                    this.password = bcrypt.hashSync(this.password, salt)
+                }
+            }
         }
     })
 
