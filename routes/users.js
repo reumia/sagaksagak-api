@@ -1,14 +1,15 @@
-import { db } from '../scripts/database'
 import express from 'express'
+
 const router = express.Router()
 require('./middlewares')(router)
 
-// define the home page route
+/* GET ALL USERS */
 router.get('/', function(req, res) {
+    console.log(req.db.models)
     res.send('Birds home page')
 })
 
-// define the about route
+/* ADD USER */
 router.get('/about', function(req, res) {
     res.send('About birds')
 })

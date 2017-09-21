@@ -1,5 +1,5 @@
-import { db } from '../scripts/database'
 import express from 'express'
+
 const router = express.Router()
 require('./middlewares')(router)
 
