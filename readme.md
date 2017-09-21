@@ -5,4 +5,8 @@
 - [Express and mySQL](http://poiemaweb.com/nodejs-mysql)
 - [How to use mySQL with Node & Express](https://www.terlici.com/2015/08/13/mysql-node-express.html)
 - [Node.js, mySQL and Promises](https://codeburst.io/node-js-mysql-and-promises-4c3be599909b)
-- [node-orm2 + express middleware : separating model files](https://github.com/dresende/node-orm2/issues/458#issuecomment-36912592)
+- __node-orm2__
+    - Model별 파일 분리 후 Express 인스턴스에 추가하기
+        - [node-orm2 + express middleware : separating model files](https://github.com/dresende/node-orm2/issues/458#issuecomment-36912592)
+        - [Official Docs : Loading Models](https://github.com/dresende/node-orm2#loading-models)
+        - [Official Docs : Express](https://github.com/dresende/node-orm2#express) 
