@@ -30,9 +30,9 @@ module.exports = function (db, cb) {
         // Users.create({
         //     status: 'OPENED',
         //     password: 'asdqwe',
-        //     name: '하하맨',
-        //     descriptions: '하하맨은 항상 웃고 다닙니다. 그러나 가끔 화가나면 화화맨으로 변신하곤 하지요. 조심해 X꺄.',
-        //     email: 'zzo.sktx@sk.com',
+        //     name: '흑흑맨',
+        //     descriptions: '흑흑맨은 항상 울고 다닙니다. 그러나 가끔 현자타임이 돠면 후후맨으로 변신하곤 하지요. 세상일 다 세옹지마입니다.',
+        //     email: 'zzo.skt@sk.com',
         //     site: 'http://www.ifkiller.com/'
         // }, err => {
         //     if (err) throw err
