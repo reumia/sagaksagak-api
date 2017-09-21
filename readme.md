@@ -9,4 +9,7 @@
     - Model별 파일 분리 후 Express 인스턴스에 추가하기
         - [node-orm2 + express middleware : separating model files](https://github.com/dresende/node-orm2/issues/458#issuecomment-36912592)
         - [Official Docs : Loading Models](https://github.com/dresende/node-orm2#loading-models)
-        - [Official Docs : Express](https://github.com/dresende/node-orm2#express) 
+        - [Official Docs : Express](https://github.com/dresende/node-orm2#express)
+    - Table 관계 맺기
+        - [Official Docs : Associations](https://github.com/dresende/node-orm2#associations)
+        - [Sequelize에서 hasMany 사용하기](http://webframeworks.kr/tutorials/expressjs/expressjs_orm_three/)
