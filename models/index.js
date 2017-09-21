@@ -13,7 +13,7 @@ module.exports = function (db, cb) {
     const LikesComic = db.models['likes_comic']
     const LikesCut = db.models['likes_cut']
 
-    Comics.hasOne('owner', Users)
+    Comics.hasOne('owner', Users, {reverse: 'users'})
     Cuts.hasOne('owner', Users)
     Cuts.hasOne('comic', Comics)
     LikesUser.hasOne('target', Users)
@@ -27,6 +27,7 @@ module.exports = function (db, cb) {
     db.sync(err => {
         if (err) throw err
 
+        // 유저 생성
         // Users.create({
         //     status: 'OPENED',
         //     password: 'asdqwe',
@@ -37,6 +38,24 @@ module.exports = function (db, cb) {
         // }, err => {
         //     if (err) throw err
         //     console.log('User Added.')
+        // })
+
+        // 코믹 생성
+        // Comics.create({
+        //     status: 'CLOSED',
+        //     title: '흑흑맨의 일기',
+        //     descriptions: '항상 우는 흑흑맨의 일기입니다. 자칫 너무 우울할 수 있으니 조심해 X꺄.',
+        // }, (err, comics) => {
+        //     if (err) throw err
+        //     Users.getAsync(2)
+        //         .then(user => {
+        //             comics.setOwner(user, err => {
+        //                 if (err) throw err
+        //                 console.log('Comic Added.')
+        //             })
+        //         }).error(err => {
+        //             if (err) throw err
+        //         })
         // })
     })
 
