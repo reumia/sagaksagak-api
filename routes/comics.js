@@ -23,11 +23,14 @@ router.get('/:id', async (req, res) => {
 
         console.log(`GET Comic ${comicId}.`)
 
-        let result
+        let result = {}
         const comic = await Comics.getAsync(comicId)
         const comicOwner = await comic.getOwnerAsync()
 
-        result = comic
+        result.status = comic.status
+        result.id = comic.id
+        result.title = comic.title
+        result.descriptions = comic.descriptions
         result.owner = comicOwner
         // TODO : 코믹이 소유하는 컷의 갯수
         result.cuts = 100
