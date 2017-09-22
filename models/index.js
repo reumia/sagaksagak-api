@@ -53,7 +53,7 @@ module.exports = function (db, cb) {
         //                 if (err) throw err
         //                 console.log('Comic Added.')
         //             })
-        //         }).error(err => {
+        //         }).catch(err => {
         //             if (err) throw err
         //         })
         // })

@@ -16,16 +16,25 @@ router.get('/', (req, res) => {
 })
 
 /* GET USER BY ID */
-router.get('/:id', (req, res) => {
-    const Comics = req.db.models.comics
-    const comicId = req.params.id
+router.get('/:id', async (req, res) => {
+    try {
+        const Comics = req.db.models.comics
+        const comicId = req.params.id
 
-    console.log(`GET Comic ${comicId}.`)
+        console.log(`GET Comic ${comicId}.`)
 
-    Comics.get(comicId, (err, comic) => {
-        if (err) res.status(500).json({err: err})
-        res.status(200).json(comic)
-    })
+        let result;
+        const comic = await Comics.getAsync(comicId)
+        const comicOwner = await comic.getOwnerAsync()
+
+        result = comic
+        result.owner = comicOwner
+
+        res.status(200).json(result)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
 })
 
 module.exports = router
