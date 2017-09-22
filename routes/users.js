@@ -27,7 +27,7 @@ router.get('/:id', async(req, res) => {
         const user = await Users.getAsync(userId)
         const userComics = await user.getComicsAsync()
 
-        result.stickers = [user.status]
+        result.status = user.status
         result.name = user.name
         result.descriptions = user.descriptions
         result.email = user.email

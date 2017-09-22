@@ -29,6 +29,13 @@ router.get('/:id', async (req, res) => {
 
         result = comic
         result.owner = comicOwner
+        // TODO : 코믹이 소유하는 컷의 갯수
+        result.cuts = 100
+        // TODO : 코믹을 좋아하는 유저의 갯수
+        result.likes = 302395
+        // TODO : 코믹 배경 이미지
+        result.image_url = '/static/example/featured.jpg'
+        // TODO : TREE
 
         res.status(200).json(result)
     }
