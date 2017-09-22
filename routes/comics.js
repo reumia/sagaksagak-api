@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 
         console.log(`GET Comic ${comicId}.`)
 
-        let result;
+        let result
         const comic = await Comics.getAsync(comicId)
         const comicOwner = await comic.getOwnerAsync()
 

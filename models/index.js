@@ -13,16 +13,15 @@ module.exports = function (db, cb) {
     const LikesComic = db.models['likes_comic']
     const LikesCut = db.models['likes_cut']
 
-    Comics.hasOne('owner', Users, {reverse: 'users'})
-    Cuts.hasOne('owner', Users)
-    Cuts.hasOne('comic', Comics)
-    LikesUser.hasOne('target', Users)
-    LikesUser.hasOne('user', Users)
-    LikesComic.hasOne('target', Comics)
-    LikesComic.hasOne('user', Users)
-    LikesCut.hasOne('target', Cuts)
-    LikesCut.hasOne('user', Users)
-
+    Comics.hasOne('owner', Users, {reverse: 'comics'})
+    Cuts.hasOne('owner', Users, {reverse: 'cuts'})
+    Cuts.hasOne('comic', Comics, {reverse: 'cuts'})
+    LikesUser.hasOne('target', Users, {reverse: 'likes'})
+    LikesUser.hasOne('user', Users, {reverse: 'likeUsers'})
+    LikesComic.hasOne('target', Comics, {reverse: 'likes'})
+    LikesComic.hasOne('user', Users, {reverse: 'likeComics'})
+    LikesCut.hasOne('target', Cuts, {reverse: 'likes'})
+    LikesCut.hasOne('user', Users, {reverse: 'likeCuts'})
 
     db.sync(err => {
         if (err) throw err
