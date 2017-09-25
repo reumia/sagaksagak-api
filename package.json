@@ -27,8 +27,11 @@
     "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "memorystore": "^1.5.0",
     "mysql": "^2.14.1",
     "nodemon": "^1.12.1",
     "orm": "^4.0.0"
