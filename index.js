@@ -4,6 +4,7 @@ import express from 'express'
 import orm from 'orm'
 import cors from 'cors'
 import session from 'express-session'
+import auth from './routes/auth'
 import users from './routes/users'
 import comics from './routes/comics'
 import cuts from './routes/cuts'
@@ -39,6 +40,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.use('/auth', auth)
 app.use('/users', users)
 app.use('/comics', comics)
 app.use('/cuts', cuts)
