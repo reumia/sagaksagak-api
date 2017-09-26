@@ -43,10 +43,6 @@ app.use('/users', users)
 app.use('/comics', comics)
 app.use('/cuts', cuts)
 
-app.use((err, req, res, next) => {
-    console.log(err)
-})
-
 app.set('port', (process.env.PORT || 3001))
 
 app.listen(app.get('port'), () => {
