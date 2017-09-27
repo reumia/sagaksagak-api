@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     })
 })
 
-/* GET USER BY ID */
+/* GET COMIC BY ID */
 router.get('/:id', async (req, res) => {
     try {
         const Comics = req.db.models.comics
@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
             owner: comicOwner,
             cuts: 100, // TODO : 코믹이 소유하는 컷의 갯수
             likes: 302395, // TODO : 코믹을 좋아하는 유저의 갯수
-            image_url: '/static/example/featured.jpg', // TODO : 코믹 배경 이미지
+            image_url: comic.image_url, // TODO : 코믹 배경 이미지
             tree: {} // TODO : TREE
         })
     }
