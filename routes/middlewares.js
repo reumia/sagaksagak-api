@@ -2,6 +2,7 @@ const timeLog = (req, res, next) => {
     console.log('Time: ', Date.now())
     next()
 }
+
 const checkAuthorization = (req, res, next) => {
     const isAuthorized = Boolean(req.session.email) === true
     const ignores = [

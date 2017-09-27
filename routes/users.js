@@ -24,27 +24,23 @@ router.get('/:id', async(req, res) => {
 
         console.log(`GET User ${userId}.`)
 
-        let result = {}
         const user = await Users.getAsync(userId)
         const userComics = await user.getComicsAsync()
 
-        result.status = user.status
-        result.name = user.name
-        result.descriptions = user.descriptions
-        result.email = user.email
-        result.site = user.site
-        // TODO : 유저가 소유하는 컷의 갯수
-        result.cuts = 10000
-        // TODO : 유저를 좋아하는 유저의 갯수
-        result.likes = 302395
-        // TODO : 유저 배경 이미지
-        result.profile_image_url = '/static/example/user_profile.jpg'
-        // TODO : 유저 프로필 이미지
-        result.featured_image_url = '/static/example/user_featured.jpg'
-        result.created_at = user.created_at
-        result.comics = userComics
-
-        res.status(200).json(result)
+        res.status(200).json({
+            id: user.id,
+            status: user.status,
+            name: user.name,
+            descriptions: user.descriptions,
+            email: user.email,
+            site: user.site,
+            cuts: 10000, // TODO : 유저가 소유하는 컷의 갯수
+            likes: 302395, // TODO : 유저를 좋아하는 유저의 갯수
+            profile_image_url: '/static/example/user_profile.jpg', // TODO : 유저 배경 이미지
+            featured_image_url: '/static/example/user_featured.jpg', // TODO : 유저 프로필 이미지
+            comics: userComics,
+            created_at: user.created_at
+        })
     }
     catch(err) {
         res.status(500).json(err)

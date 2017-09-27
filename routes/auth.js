@@ -42,7 +42,16 @@ router.post('/sign-in', async(req, res) => {
 
         req.session.email = email
 
-        res.status(200).json(user)
+        res.status(200).json({
+            id: user.is,
+            status: user.status,
+            name: user.name,
+            email: user.email,
+            descriptions: user.descriptions,
+            site: user.site,
+            profile_image_url: user.profile_image_url,
+            featured_image_url: user.featured_image_url
+        })
     }
     catch(err) {
         console.warn(err.message)
