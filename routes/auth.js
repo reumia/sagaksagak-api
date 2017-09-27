@@ -51,7 +51,7 @@ router.post('/sign-in', async(req, res) => {
 })
 
 /* SIGN OUT */
-router.get('/sign-out', async(req, res) => {
+router.post('/sign-out', async(req, res) => {
     try {
         console.log('Sign Out')
 
@@ -61,7 +61,7 @@ router.get('/sign-out', async(req, res) => {
         })
         else throw new Error('NOT_AUTHORIZED')
 
-        res.status(200)
+        res.status(200).send()
     }
     catch(err) {
         console.warn(err.message)
