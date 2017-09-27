@@ -73,8 +73,8 @@ router.get('/sign-out', async(req, res) => {
 router.get('/check', (req, res) => {
     console.log('Check already authorized or not')
 
-    if (req.session.email) res.status(200).json({isAuthorized: true})
-    else res.status(200).json({isAuthorized: false})
+    if (req.session.email) res.status(200).send()
+    else res.status(401).send()
 })
 
 module.exports = router
