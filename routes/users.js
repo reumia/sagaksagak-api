@@ -16,6 +16,30 @@ router.get('/', (req, res) => {
     })
 })
 
+/* GET USER BY SESSION */
+router.get('/@me', async(req, res) => {
+    try {
+        const Users = req.db.models.users
+
+        console.log(`GET Current User.`)
+
+        const user = await Users.oneAsync({ email: req.session.email })
+
+        res.status(200).json({
+            id: user.id,
+            status: user.status,
+            name: user.name,
+            email: user.email,
+            descriptions: user.descriptions,
+            site: user.site,
+            profile_image_url: user.profile_image_url,
+            featured_image_url: user.featured_image_url
+        })
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
 /* GET USER BY ID */
 router.get('/:id', async(req, res) => {
     try {

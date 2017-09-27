@@ -13,7 +13,8 @@ router.post('/sign-up', async(req, res) => {
         const record = {
             status: 'OPENED',
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            name: req.body.name
         }
         const result = await Users.createAsync(record)
 
@@ -43,7 +44,7 @@ router.post('/sign-in', async(req, res) => {
         req.session.email = email
 
         res.status(200).json({
-            id: user.is,
+            id: user.id,
             status: user.status,
             name: user.name,
             email: user.email,
