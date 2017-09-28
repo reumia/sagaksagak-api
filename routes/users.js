@@ -60,8 +60,8 @@ router.get('/:id', async(req, res) => {
             site: user.site,
             cuts: 10000, // TODO : 유저가 소유하는 컷의 갯수
             likes: 302395, // TODO : 유저를 좋아하는 유저의 갯수
-            profile_image_url: '/static/example/user_profile.jpg', // TODO : 유저 배경 이미지
-            featured_image_url: '/static/example/user_featured.jpg', // TODO : 유저 프로필 이미지
+            profile_image_url: user.profile_image_url, // TODO : 유저 배경 이미지
+            featured_image_url: user.featured_image_url, // TODO : 유저 프로필 이미지
             comics: userComics,
             created_at: user.created_at
         })
