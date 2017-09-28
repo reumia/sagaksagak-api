@@ -1,6 +1,6 @@
 module.exports = (db, cb) => {
     db.define('comics', {
-        status: {type: 'enum', values: ['OPENED', 'CLOSED', 'BLOCKED']},
+        status: {type: 'enum', values: ['OPENED', 'CLOSED', 'LOCKED', 'BLOCKED']},
         title: {type: 'text'},
         descriptions: {type: 'text'},
         image_url: {type: 'text'},
