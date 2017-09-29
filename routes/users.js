@@ -24,7 +24,10 @@ router.get('/@me', async(req, res) => {
         console.log(`GET Current User.`)
 
         const user = await Users.oneAsync({ email: req.session.email })
-        const userComics = await user.getComicsAsync()
+        let userComics
+
+        if (user) userComics = await user.getComicsAsync()
+        else throw new Error('NOT_AUTHORIZED')
 
         res.status(200).json({
             id: user.id,
@@ -38,7 +41,8 @@ router.get('/@me', async(req, res) => {
             comics: userComics
         })
     } catch(err) {
-        res.status(500).json(err)
+        if (err.message === 'NOT_AUTHORIZED') res.status(401).send()
+        else res.status(500).json(err)
     }
 })
 
