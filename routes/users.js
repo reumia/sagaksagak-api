@@ -24,6 +24,7 @@ router.get('/@me', async(req, res) => {
         console.log(`GET Current User.`)
 
         const user = await Users.oneAsync({ email: req.session.email })
+        const userComics = await user.getComicsAsync()
 
         res.status(200).json({
             id: user.id,
@@ -33,7 +34,8 @@ router.get('/@me', async(req, res) => {
             descriptions: user.descriptions,
             site: user.site,
             profile_image_url: user.profile_image_url,
-            featured_image_url: user.featured_image_url
+            featured_image_url: user.featured_image_url,
+            comics: userComics
         })
     } catch(err) {
         res.status(500).json(err)
