@@ -1,5 +1,4 @@
 import express from 'express'
-import bcrypt from 'bcrypt'
 
 const router = express.Router()
 require('./middlewares')(router)
@@ -24,22 +23,11 @@ router.get('/@me', async(req, res) => {
         console.log(`GET Current User.`)
 
         const user = await Users.oneAsync({ email: req.session.email })
-        let userComics
+        if (user === null) throw new Error('NOT_AUTHORIZED')
 
-        if (user) userComics = await user.getComicsAsync()
-        else throw new Error('NOT_AUTHORIZED')
+        user.password = null
 
-        res.status(200).json({
-            id: user.id,
-            status: user.status,
-            name: user.name,
-            email: user.email,
-            descriptions: user.descriptions,
-            site: user.site,
-            profile_image_url: user.profile_image_url,
-            featured_image_url: user.featured_image_url,
-            comics: userComics
-        })
+        res.status(200).json(user)
     } catch(err) {
         if (err.message === 'NOT_AUTHORIZED') res.status(401).send()
         else res.status(500).json(err)
@@ -55,22 +43,13 @@ router.get('/:id', async(req, res) => {
         console.log(`GET User ${userId}.`)
 
         const user = await Users.getAsync(userId)
-        const userComics = await user.getComicsAsync()
+        if (user === null) throw new Error('NO_USER')
 
-        res.status(200).json({
-            id: user.id,
-            status: user.status,
-            name: user.name,
-            descriptions: user.descriptions,
-            email: user.email,
-            site: user.site,
-            cuts: 10000, // TODO : 유저가 소유하는 컷의 갯수
-            likes: 302395, // TODO : 유저를 좋아하는 유저의 갯수
-            profile_image_url: user.profile_image_url, // TODO : 유저 배경 이미지
-            featured_image_url: user.featured_image_url, // TODO : 유저 프로필 이미지
-            comics: userComics,
-            created_at: user.created_at
-        })
+        user.password = null
+        user.cuts = 10000 // TODO : 유저가 소유하는 컷의 갯수
+        user.likes = 302395 // TODO : 유저를 좋아하는 유저의 갯수
+
+        res.status(200).json(user)
     }
     catch(err) {
         res.status(500).json(err)

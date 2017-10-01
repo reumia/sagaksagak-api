@@ -37,24 +37,14 @@ router.post('/sign-in', async(req, res) => {
 
         const Users = req.db.models.users
         const user = await Users.oneAsync({email: email})
-        const userComics = await user.getComicsAsync()
-
         if (user === null) throw new Error('NO_USER')
         if (bcrypt.compareSync(req.body.password, user.password) === false) throw new Error('WRONG_PASSWORD')
 
         req.session.email = email
 
-        res.status(200).json({
-            id: user.id,
-            status: user.status,
-            name: user.name,
-            email: user.email,
-            descriptions: user.descriptions,
-            site: user.site,
-            profile_image_url: user.profile_image_url,
-            featured_image_url: user.featured_image_url,
-            comic: userComics
-        })
+        user.password = null
+
+        res.status(200).json(user)
     }
     catch(err) {
         console.warn(err.message)

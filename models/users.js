@@ -24,15 +24,19 @@ module.exports = (db, cb) => {
             ]
         },
         hooks: {
-            beforeCreate: function () {
+            beforeCreate () {
                 this.created_at = new Date()
             },
-            beforeSave: function () {
+            beforeSave () {
                 if (this.password) {
                     console.log('Hashing password...')
                     const salt = bcrypt.genSaltSync(10)
                     this.password = bcrypt.hashSync(this.password, salt)
                 }
+            },
+            async afterLoad (next) {
+                this.comics = await this.getComicsAsync()
+                next()
             }
         }
     })
