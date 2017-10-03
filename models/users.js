@@ -35,7 +35,14 @@ module.exports = (db, cb) => {
                 }
             },
             async afterLoad (next) {
+                const cuts = await this.getCutsAsync()
+                const likes = await this.getLikesAsync()
+
+                this.cuts = cuts.length
+                this.likes = likes.length
+
                 this.comics = await this.getComicsAsync()
+
                 next()
             }
         }

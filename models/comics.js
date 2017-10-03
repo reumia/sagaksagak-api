@@ -9,6 +9,15 @@ module.exports = (db, cb) => {
         hooks: {
             beforeCreate: function () {
                 this.created_at = new Date()
+            },
+            async afterLoad (next) {
+                const cuts = await this.getCutsAsync()
+                const likes = await this.getLikesAsync()
+
+                this.cuts = cuts.length
+                this.likes = likes.length
+
+                next()
             }
         }
     })

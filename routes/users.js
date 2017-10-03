@@ -46,8 +46,6 @@ router.get('/:id', async(req, res) => {
         if (user === null) throw new Error('NO_USER')
 
         user.password = null
-        user.cuts = 10000 // TODO : 유저가 소유하는 컷의 갯수
-        user.likes = 302395 // TODO : 유저를 좋아하는 유저의 갯수
 
         res.status(200).json(user)
     }
