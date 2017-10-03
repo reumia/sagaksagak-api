@@ -28,10 +28,13 @@ router.get('/:id', async (req, res) => {
         console.log(`GET Comic ${comicId}.`)
 
         const comic = await Comics.getAsync(comicId)
-
         // TODO : TREE
+        const tree = {}
 
-        res.status(200).json(comic)
+        res.status(200).json({
+            ...comic,
+            tree: tree
+        })
     }
     catch(err) {
         res.status(500).json(err)
