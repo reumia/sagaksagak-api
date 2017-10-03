@@ -14,6 +14,7 @@ module.exports = (db, cb) => {
         created_at: {type: 'date'},
         drop_at: {type: 'date'}
     }, {
+        autoFetch: true,
         validations: {
             email: [
                 orm.enforce.unique('이미 존재하는 E-mail 입니다.'),
@@ -33,18 +34,19 @@ module.exports = (db, cb) => {
                     const salt = bcrypt.genSaltSync(10)
                     this.password = bcrypt.hashSync(this.password, salt)
                 }
-            },
-            async afterLoad (next) {
-                const cuts = await this.getCutsAsync()
-                const likes = await this.getLikesAsync()
-
-                this.cuts = cuts.length
-                this.likes = likes.length
-
-                this.comics = await this.getComicsAsync()
-
-                next()
             }
+            // },
+            // async afterLoad (next) {
+            //     const cuts = await this.getCutsAsync()
+            //     const likes = await this.getLikesAsync()
+            //
+            //     this.cuts = cuts.length
+            //     this.likes = likes.length
+            //
+            //     this.comics = await this.getComicsAsync()
+            //
+            //     next()
+            // }
         }
     })
 
