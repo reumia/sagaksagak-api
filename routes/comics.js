@@ -15,7 +15,8 @@ router.get('/', async (req, res) => {
         res.status(200).json(comics)
     }
     catch(err) {
-        res.status(500).json(err)
+        console.log(err.literalCode)
+        res.status(500).json(err.literalCode)
     }
 })
 
@@ -37,7 +38,8 @@ router.get('/:id', async (req, res) => {
         })
     }
     catch(err) {
-        res.status(500).json(err)
+        console.log(err)
+        res.status(500).json(err.message)
     }
 })
 
@@ -61,7 +63,14 @@ router.post('/', async (req, res) => {
         res.status(200).json(comic)
     }
     catch(err) {
-        res.status(500).json(err)
+        console.log(err)
+
+        let errorCode = null
+
+        if (err.message === 'required') errorCode = `REQUIRED_${err.property.toUpperCase()}`
+        else errorCode = err.literalCode
+
+        res.status(500).json(errorCode)
     }
 })
 

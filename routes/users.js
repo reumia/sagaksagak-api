@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
     console.log(`GET All Opened Users.`)
 
     Users.all({status: 'OPENED'}, (err, users) => {
-        if (err) res.status(500).json({err: err})
+        if (err) {
+            console.warn(err.literalCode)
+            res.status(500).json(err.literalCode)
+        }
         res.status(200).json(users)
     })
 })
@@ -30,7 +33,10 @@ router.get('/@me', async(req, res) => {
         res.status(200).json(user)
     } catch(err) {
         if (err.message === 'NOT_AUTHORIZED') res.status(401).send()
-        else res.status(500).json(err)
+        else {
+            console.warn(err.literalCode)
+            res.status(500).json(err.literalCode)
+        }
     }
 })
 
@@ -50,7 +56,8 @@ router.get('/:id', async(req, res) => {
         res.status(200).json(user)
     }
     catch(err) {
-        res.status(500).json(err)
+        console.warn(err.literalCode)
+        res.status(500).json(err.literalCode)
     }
 })
 
