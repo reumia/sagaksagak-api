@@ -1,9 +1,9 @@
 module.exports = (db, cb) => {
     db.define('comics', {
         status: {type: 'enum', values: ['OPENED', 'CLOSED', 'LOCKED', 'BLOCKED']},
-        title: {type: 'text'},
-        descriptions: {type: 'text'},
-        image_url: {type: 'text'},
+        title: {type: 'text', required: true},
+        descriptions: {type: 'text', required: true},
+        image_url: {type: 'text', required: true},
         created_at: {type: 'date'}
     }, {
         autoFetch: true,
