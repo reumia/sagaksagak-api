@@ -8,6 +8,7 @@ import auth from './routes/auth'
 import users from './routes/users'
 import comics from './routes/comics'
 import cuts from './routes/cuts'
+import upload from './routes/upload'
 import databaseConfig from './configs/database'
 
 const app = express()
@@ -44,6 +45,7 @@ app.use('/auth', auth)
 app.use('/users', users)
 app.use('/comics', comics)
 app.use('/cuts', cuts)
+app.use('/upload', upload)
 
 app.set('port', (process.env.PORT || 3001))
 

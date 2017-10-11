@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV='development' nodemon $NODE_DEBUG_OPTION -r babel-register index.js",
+    "start": "NODE_ENV='development' nodemon -r babel-register index.js",
     "start:prod": "NODE_ENV='production' node dist/index.js",
     "build": "babel . --ignore node_modules,dist --out-dir dist"
   },
