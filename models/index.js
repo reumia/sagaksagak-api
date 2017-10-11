@@ -26,6 +26,13 @@ module.exports = function (db, cb) {
     db.sync(err => {
         if (err) throw err
 
+        // Set 테스트맨 비밀번호
+        // Users.getAsync(8)
+        //     .then(user => {
+        //         user.password = 'testtest'
+        //         user.save()
+        //     })
+
         // Users.create({
         //     status: 'OPENED',
         //     password: 'asdqwe',
@@ -85,4 +92,3 @@ module.exports = function (db, cb) {
 
     return cb()
 }
-

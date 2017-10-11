@@ -1,11 +1,10 @@
 import orm from 'orm'
-import bcrypt from 'bcrypt'
 
 module.exports = (db, cb) => {
     db.define('users', {
         status: {type: 'enum', values: ['OPENED', 'DROPPED', 'BLOCKED']},
         password: {type: 'text', required: true},
-        name: {type: 'text', unique: true},
+        name: {type: 'text', required: true},
         descriptions: {type: 'text'},
         email: {type: 'text', unique: true, required: true},
         site: {type: 'text'},
@@ -19,34 +18,13 @@ module.exports = (db, cb) => {
             email: [
                 orm.enforce.unique('이미 존재하는 E-mail 입니다.'),
                 orm.enforce.patterns.email('올바른 E-mail을 입력해 주세요.')
-            ],
-            password: [
-                orm.enforce.ranges.length(8, 24, '비밀번호는 최소 8자리, 최대 24자리까지 입력 가능합니다.')
             ]
         },
         hooks: {
-            beforeCreate () {
+            beforeCreate (next) {
                 this.created_at = new Date()
-            },
-            beforeSave () {
-                if (this.password) {
-                    console.log('Hashing password...')
-                    const salt = bcrypt.genSaltSync(10)
-                    this.password = bcrypt.hashSync(this.password, salt)
-                }
+                next()
             }
-            // },
-            // async afterLoad (next) {
-            //     const cuts = await this.getCutsAsync()
-            //     const likes = await this.getLikesAsync()
-            //
-            //     this.cuts = cuts.length
-            //     this.likes = likes.length
-            //
-            //     this.comics = await this.getComicsAsync()
-            //
-            //     next()
-            // }
         }
     })
 

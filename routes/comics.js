@@ -41,4 +41,28 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+/* ADD COMICS */
+router.post('/', async (req, res) => {
+    try {
+        const Comics = req.db.models.comics
+        const Users = req.db.models.users
+
+        console.log(`ADD New Comic.`)
+
+        const comic = await Comics.createAsync({
+            status: 'CLOSED',
+            title: req.body.title,
+            descriptions: req.body.descriptions,
+            image_url: req.body.imageUrl ? req.body.imageUrl : null
+        })
+        const user = await Users.getAsync(req.session.userId)
+        await comic.setOwnerAsync(user)
+
+        res.status(200).json(comic)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
+})
+
 module.exports = router

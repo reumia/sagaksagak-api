@@ -9,11 +9,15 @@ router.post('/sign-up', async(req, res) => {
     try {
         console.log('Sign Up', req.body.email)
 
+        console.log('Hashing password...')
+        const salt = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+
         const Users = req.db.models.users
         const record = {
             status: 'OPENED',
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
             name: req.body.name
         }
         const result = await Users.createAsync(record)
@@ -41,6 +45,7 @@ router.post('/sign-in', async(req, res) => {
         if (bcrypt.compareSync(req.body.password, user.password) === false) throw new Error('WRONG_PASSWORD')
 
         req.session.email = email
+        req.session.userId = user.id
 
         user.password = null
 
