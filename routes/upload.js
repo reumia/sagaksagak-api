@@ -7,7 +7,7 @@ require('./middlewares')(router)
 router.post('/', function(req, res) {
     try {
         res.status(200).json({
-            downloadUrl: null
+            downloadUrl: 'test'
         })
     }
     catch(err) {

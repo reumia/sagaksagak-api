@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
         console.log(`ADD New Comic.`)
 
         const comic = await Comics.createAsync({
-            status: 'CLOSED',
+            status: 'READY',
             title: req.body.title,
             descriptions: req.body.descriptions,
             image_url: req.body.imageUrl ? req.body.imageUrl : null
