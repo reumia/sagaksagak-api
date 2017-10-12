@@ -4,12 +4,28 @@ const router = express.Router()
 require('./middlewares')(router)
 
 /* GET LATEST COMICS */
-router.get('/', async (req, res) => {
+router.get('/latest', async (req, res) => {
     try {
-        const Comics = req.db.models.comics
-
         console.log(`GET Latest 8 Comics.`)
 
+        const Comics = req.db.models.comics
+        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['created_at', 'Z'])
+
+        res.status(200).json(comics)
+    }
+    catch(err) {
+        console.log(err.literalCode)
+        res.status(500).json(err.literalCode)
+    }
+})
+
+// TODO : 인기 코믹
+/* GET POPULAR COMICS */
+router.get('/popular', async (req, res) => {
+    try {
+        console.log(`GET Popular 8 Comics.`)
+
+        const Comics = req.db.models.comics
         const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['created_at', 'Z'])
 
         res.status(200).json(comics)
@@ -23,14 +39,12 @@ router.get('/', async (req, res) => {
 /* GET COMIC BY ID */
 router.get('/:id', async (req, res) => {
     try {
-        const Comics = req.db.models.comics
-        const comicId = req.params.id
-
         console.log(`GET Comic ${comicId}.`)
 
+        const Comics = req.db.models.comics
+        const comicId = req.params.id
         const comic = await Comics.getAsync(comicId)
-        // TODO : TREE
-        const tree = {}
+        const tree = {} // TODO : TREE
 
         res.status(200).json({
             ...comic,
@@ -46,11 +60,10 @@ router.get('/:id', async (req, res) => {
 /* ADD COMICS */
 router.post('/', async (req, res) => {
     try {
-        const Comics = req.db.models.comics
-        const Users = req.db.models.users
-
         console.log(`ADD New Comic.`)
 
+        const Comics = req.db.models.comics
+        const Users = req.db.models.users
         const comic = await Comics.createAsync({
             status: 'READY',
             title: req.body.title,
@@ -63,13 +76,11 @@ router.post('/', async (req, res) => {
         res.status(200).json(comic)
     }
     catch(err) {
-        console.log(err)
-
         let errorCode = null
-
         if (err.message === 'required') errorCode = `REQUIRED_${err.property.toUpperCase()}`
         else errorCode = err.literalCode
 
+        console.log(err)
         res.status(500).json(errorCode)
     }
 })

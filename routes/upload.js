@@ -6,6 +6,8 @@ require('./middlewares')(router)
 // Dummy Upload API
 router.post('/', function(req, res) {
     try {
+        console.log('File Upload')
+
         res.status(200).json({
             downloadUrl: 'test'
         })

@@ -5,10 +5,9 @@ require('./middlewares')(router)
 
 /* GET ALL USERS */
 router.get('/', (req, res) => {
-    const Users = req.db.models.users
-
     console.log(`GET All Opened Users.`)
 
+    const Users = req.db.models.users
     Users.all({status: 'OPENED'}, (err, users) => {
         if (err) {
             console.warn(err.literalCode)
@@ -21,10 +20,9 @@ router.get('/', (req, res) => {
 /* GET USER BY SESSION */
 router.get('/@me', async(req, res) => {
     try {
-        const Users = req.db.models.users
-
         console.log(`GET Current User.`)
 
+        const Users = req.db.models.users
         const user = await Users.oneAsync({ email: req.session.email })
         if (user === null) throw new Error('NOT_AUTHORIZED')
 
@@ -43,11 +41,10 @@ router.get('/@me', async(req, res) => {
 /* GET USER BY ID */
 router.get('/:id', async(req, res) => {
     try {
-        const Users = req.db.models.users
-        const userId = req.params.id
-
         console.log(`GET User ${userId}.`)
 
+        const Users = req.db.models.users
+        const userId = req.params.id
         const user = await Users.getAsync(userId)
         if (user === null) throw new Error('NO_USER')
 

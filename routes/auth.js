@@ -33,12 +33,10 @@ router.post('/sign-up', async(req, res) => {
 /* SIGN IN */
 router.post('/sign-in', async(req, res) => {
     try {
-        const email = req.body.email
-
         console.log('Sign In', email)
 
+        const email = req.body.email
         if (req.session.email) throw new Error('ALREADY_AUTHORIZED')
-
         const Users = req.db.models.users
         const user = await Users.oneAsync({email: email})
         if (user === null) throw new Error('NO_USER')
