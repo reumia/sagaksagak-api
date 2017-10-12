@@ -3,14 +3,14 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* GET ALL COMICS */
+/* GET LATEST COMICS */
 router.get('/', async (req, res) => {
     try {
         const Comics = req.db.models.comics
 
-        console.log(`GET All Opened Comics.`)
+        console.log(`GET Latest 8 Comics.`)
 
-        const comics = await Comics.allAsync({})
+        const comics = await Comics.findAsync({}, {limit: 8}, ['created_at', 'Z'])
 
         res.status(200).json(comics)
     }
