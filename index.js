@@ -41,6 +41,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.use('/static', express.static('attachments'));
 app.use('/auth', auth)
 app.use('/users', users)
 app.use('/comics', comics)
