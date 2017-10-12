@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
         console.log(`GET Latest 8 Comics.`)
 
-        const comics = await Comics.findAsync({}, {limit: 8}, ['created_at', 'Z'])
+        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['created_at', 'Z'])
 
         res.status(200).json(comics)
     }
