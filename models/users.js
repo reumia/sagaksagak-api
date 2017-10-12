@@ -8,8 +8,7 @@ module.exports = (db, cb) => {
         descriptions: {type: 'text'},
         email: {type: 'text', unique: true, required: true},
         site: {type: 'text'},
-        profile_image_url: {type: 'text'},
-        featured_image_url: {type: 'text'},
+        image_url: {type: 'text'},
         created_at: {type: 'date'},
         drop_at: {type: 'date'}
     }, {
