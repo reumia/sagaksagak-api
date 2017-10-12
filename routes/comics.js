@@ -68,10 +68,36 @@ router.post('/', async (req, res) => {
             status: 'READY',
             title: req.body.title,
             descriptions: req.body.descriptions,
-            image_url: req.body.imageUrl ? req.body.imageUrl : null
+            image_url: req.body.image_url ? req.body.image_url : null
         })
         const user = await Users.getAsync(req.session.userId)
         await comic.setOwnerAsync(user)
+
+        res.status(200).json(comic)
+    }
+    catch(err) {
+        let errorCode = null
+        if (err.message === 'required') errorCode = `REQUIRED_${err.property.toUpperCase()}`
+        else errorCode = err.literalCode
+
+        console.log(err)
+        res.status(500).json(errorCode)
+    }
+})
+
+/* UPDATE COMICS */
+router.post('/:id/update', async (req, res) => {
+    try {
+        console.log(`Update Comic ${req.params.id}.`)
+
+        const Comics = req.db.models.comics
+        const comic = await Comics.getAsync(req.params.id)
+
+        await comic.saveAsync({
+            title: req.body.title,
+            descriptions: req.body.descriptions,
+            image_url: req.body.image_url ? req.body.image_url : null
+        })
 
         res.status(200).json(comic)
     }
