@@ -9,8 +9,8 @@ module.exports = (db, cb) => {
         email: {type: 'text', unique: true, required: true},
         site: {type: 'text'},
         image_url: {type: 'text'},
-        created_at: {type: 'date'},
-        drop_at: {type: 'date'}
+        created_at: {type: 'date', time: true},
+        drop_at: {type: 'date', time: true}
     }, {
         autoFetch: true,
         validations: {

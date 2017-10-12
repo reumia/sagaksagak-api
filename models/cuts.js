@@ -5,7 +5,7 @@ module.exports = (db, cb) => {
         title: {type: 'text'},
         descriptions: {type: 'text'},
         image_url: {type: 'text'},
-        created_at: {type: 'date'}
+        created_at: {type: 'date', time: true}
     }, {
         hooks: {
             beforeCreate: function () {

@@ -92,3 +92,4 @@ module.exports = function (db, cb) {
 
     return cb()
 }
+
