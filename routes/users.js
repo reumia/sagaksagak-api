@@ -26,8 +26,6 @@ router.get('/@me', async(req, res) => {
         const user = await Users.oneAsync({ email: req.session.email })
         if (user === null) throw new Error('NOT_AUTHORIZED')
 
-        user.password = null
-
         res.status(200).json(user)
     } catch(err) {
         if (err.message === 'NOT_AUTHORIZED') res.status(401).send()
@@ -41,14 +39,11 @@ router.get('/@me', async(req, res) => {
 /* GET USER BY ID */
 router.get('/:id', async(req, res) => {
     try {
-        console.log(`GET User ${userId}.`)
+        console.log(`GET User ${req.params.id}.`)
 
         const Users = req.db.models.users
-        const userId = req.params.id
-        const user = await Users.getAsync(userId)
+        const user = await Users.getAsync(req.params.id)
         if (user === null) throw new Error('NO_USER')
-
-        user.password = null
 
         res.status(200).json(user)
     }
@@ -58,13 +53,35 @@ router.get('/:id', async(req, res) => {
     }
 })
 
+/* UPDATE USER */
+router.put('/:id/update', async(req, res) => {
+    try {
+        console.log(`Update User ${req.params.id}.`)
+
+        const Users = req.db.models.users
+        const user = await Users.getAsync(req.params.id)
+        if (user === null) throw new Error('NO_USER')
+
+        await user.saveAsync({
+            name: req.body.name,
+            descriptions: req.body.descriptions,
+            site: req.body.site,
+            image_url: req.body.image_url
+        })
+
+        res.status(200).json(user)
+    }
+    catch(err) {
+        console.log(err)
+        res.status(500).json(errorCode)
+    }
+})
+
 /* GET USER LIKES */
 // 유저가 좋아하는 유저
 // 유저가 좋아하는 코믹
 // 유저가 좋아하는 컷
 
-
-/* UPDATE USER */
 /* DROP USER */
 
 module.exports = router

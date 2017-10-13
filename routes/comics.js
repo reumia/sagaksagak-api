@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
 })
 
 /* UPDATE COMICS */
-router.post('/:id/update', async (req, res) => {
+router.put('/:id/update', async (req, res) => {
     try {
         console.log(`Update Comic ${req.params.id}.`)
 
@@ -96,7 +96,7 @@ router.post('/:id/update', async (req, res) => {
         await comic.saveAsync({
             title: req.body.title,
             descriptions: req.body.descriptions,
-            image_url: req.body.image_url ? req.body.image_url : null
+            image_url: req.body.image_url
         })
 
         res.status(200).json(comic)
