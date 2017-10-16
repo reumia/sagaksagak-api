@@ -20,7 +20,7 @@ router.post('/sign-up', async(req, res) => {
             password: hashedPassword,
             name: req.body.name,
             descriptions: req.body.descriptions
-        }
+        })
 
         res.status(200).json(result)
     }
