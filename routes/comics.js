@@ -39,11 +39,10 @@ router.get('/popular', async (req, res) => {
 /* GET COMIC BY ID */
 router.get('/:id', async (req, res) => {
     try {
-        console.log(`GET Comic ${comicId}.`)
+        console.log(`GET Comic ${req.params.id}.`)
 
         const Comics = req.db.models.comics
-        const comicId = req.params.id
-        const comic = await Comics.getAsync(comicId)
+        const comic = await Comics.getAsync(req.params.id)
         const tree = {} // TODO : TREE
 
         res.status(200).json({
@@ -52,8 +51,8 @@ router.get('/:id', async (req, res) => {
         })
     }
     catch(err) {
-        console.log(err)
-        res.status(500).json(err.message)
+        console.warn(err.literalCode)
+        res.status(500).json(err.literalCode)
     }
 })
 
