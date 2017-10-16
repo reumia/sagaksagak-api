@@ -62,15 +62,13 @@ router.post('/', async (req, res) => {
         console.log(`ADD New Comic.`)
 
         const Comics = req.db.models.comics
-        const Users = req.db.models.users
         const comic = await Comics.createAsync({
             status: 'READY',
             title: req.body.title,
             descriptions: req.body.descriptions,
-            imageUrl: req.body.imageUrl ? req.body.imageUrl : null
+            imageUrl: req.body.imageUrl ? req.body.imageUrl : null,
+            ownerId: req.session.userId
         })
-        const user = await Users.getAsync(req.session.userId)
-        await comic.setOwnerAsync(user)
 
         res.status(200).json(comic)
     }

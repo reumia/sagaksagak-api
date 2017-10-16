@@ -13,16 +13,16 @@ module.exports = function (db, cb) {
     const LikesComic = db.models['likes_comic']
     const LikesCut = db.models['likes_cut']
 
-    Comics.hasOne('owner', Users, {reverse: 'comics'})
-    Cuts.hasOne('owner', Users, {reverse: 'cuts'})
-    Cuts.hasOne('comic', Comics, {reverse: 'cuts'})
-    Cuts.hasOne('parent', Cuts, {reverse: 'cuts'})
-    LikesUser.hasOne('target', Users, {reverse: 'likes'})
-    LikesUser.hasOne('user', Users, {reverse: 'likeUsers'})
-    LikesComic.hasOne('target', Comics, {reverse: 'likes'})
-    LikesComic.hasOne('user', Users, {reverse: 'likeComics'})
-    LikesCut.hasOne('target', Cuts, {reverse: 'likes'})
-    LikesCut.hasOne('user', Users, {reverse: 'likeCuts'})
+    Comics.hasOne('owner', Users, {reverse: 'comics', field: 'ownerId', mapsTo: 'owner_id', required: true})
+    Cuts.hasOne('owner', Users, {reverse: 'cuts', field: 'ownerId', mapsTo: 'owner_id', required: true})
+    Cuts.hasOne('comic', Comics, {reverse: 'cuts', field: 'comicId', mapsTo: 'comic_id', required: true})
+    Cuts.hasOne('parent', Cuts, {reverse: 'cuts', field: 'parentId', mapsTo: 'parent_id'})
+    LikesUser.hasOne('target', Users, {reverse: 'likes', field: 'targetId', mapsTo: 'target_id', required: true})
+    LikesUser.hasOne('user', Users, {reverse: 'likeUsers', field: 'userId', mapsTo: 'user_id', required: true})
+    LikesComic.hasOne('target', Comics, {reverse: 'likes', field: 'targetId', mapsTo: 'target_id', required: true})
+    LikesComic.hasOne('user', Users, {reverse: 'likeComics', field: 'userId', mapsTo: 'user_id', required: true})
+    LikesCut.hasOne('target', Cuts, {reverse: 'likes', field: 'targetId', mapsTo: 'target_id', required: true})
+    LikesCut.hasOne('user', Users, {reverse: 'likeCuts', field: 'userId', mapsTo: 'user_id', required: true})
 
     db.sync(err => {
         if (err) throw err
