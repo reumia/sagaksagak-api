@@ -14,13 +14,13 @@ router.post('/sign-up', async(req, res) => {
         const hashedPassword = bcrypt.hashSync(req.body.password, salt)
 
         const Users = req.db.models.users
-        const record = {
+        const result = await Users.createAsync({
             status: 'OPENED',
             email: req.body.email,
             password: hashedPassword,
-            name: req.body.name
+            name: req.body.name,
+            descriptions: req.body.descriptions
         }
-        const result = await Users.createAsync(record)
 
         res.status(200).json(result)
     }
