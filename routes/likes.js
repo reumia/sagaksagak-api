@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
             parentId: req.body.parentId ? req.body.parentId : null
         })
 
-        res.status(200).json(cut)
+        res.status(200).json(await cut)
     }
     catch(err) {
         let errorCode = null
