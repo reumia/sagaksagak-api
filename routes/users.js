@@ -66,7 +66,7 @@ router.put('/:id/update', async(req, res) => {
             name: req.body.name,
             descriptions: req.body.descriptions,
             site: req.body.site,
-            image_url: req.body.image_url
+            imageUrl: req.body.imageUrl
         })
 
         res.status(200).json(user)

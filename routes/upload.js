@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
         console.log('File Upload')
 
         res.status(200).json({
-            image_url: `http://127.0.0.1:3001/static/${req.file.filename}`
+            imageUrl: `http://127.0.0.1:3001/static/${req.file.filename}`
         })
     }
     catch(err) {

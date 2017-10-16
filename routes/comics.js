@@ -9,7 +9,7 @@ router.get('/latest', async (req, res) => {
         console.log(`GET Latest 8 Comics.`)
 
         const Comics = req.db.models.comics
-        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['created_at', 'Z'])
+        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['createdAt', 'Z'])
 
         res.status(200).json(comics)
     }
@@ -26,7 +26,7 @@ router.get('/popular', async (req, res) => {
         console.log(`GET Popular 8 Comics.`)
 
         const Comics = req.db.models.comics
-        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['created_at', 'Z'])
+        const comics = await Comics.findAsync({status: ['READY', 'OPENED', 'CLOSED']}, {limit: 8}, ['createdAt', 'Z'])
 
         res.status(200).json(comics)
     }
@@ -67,7 +67,7 @@ router.post('/', async (req, res) => {
             status: 'READY',
             title: req.body.title,
             descriptions: req.body.descriptions,
-            image_url: req.body.image_url ? req.body.image_url : null
+            imageUrl: req.body.imageUrl ? req.body.imageUrl : null
         })
         const user = await Users.getAsync(req.session.userId)
         await comic.setOwnerAsync(user)
@@ -95,7 +95,7 @@ router.put('/:id/update', async (req, res) => {
         await comic.saveAsync({
             title: req.body.title,
             descriptions: req.body.descriptions,
-            image_url: req.body.image_url
+            imageUrl: req.body.imageUrl
         })
 
         res.status(200).json(comic)

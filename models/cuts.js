@@ -1,15 +1,15 @@
 module.exports = (db, cb) => {
     db.define('cuts', {
         status: {type: 'enum', values: ['OPENED', 'CLOSED', 'BLOCKED']},
-        parent_id: {type: 'integer'},
+        parentId: {type: 'integer', mapsTo: 'parent_id'},
         title: {type: 'text'},
         descriptions: {type: 'text'},
-        image_url: {type: 'text'},
-        created_at: {type: 'date', time: true}
+        imageUrl: {type: 'text', mapsTo: 'image_url'},
+        createdAt: {type: 'date', time: true, mapsTo: 'created_at'}
     }, {
         hooks: {
             beforeCreate: function () {
-                this.created_at = new Date()
+                this.createdAt = new Date()
             }
         }
     })

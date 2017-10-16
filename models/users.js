@@ -8,9 +8,9 @@ module.exports = (db, cb) => {
         descriptions: {type: 'text'},
         email: {type: 'text', unique: true, required: true},
         site: {type: 'text'},
-        image_url: {type: 'text'},
-        created_at: {type: 'date', time: true},
-        drop_at: {type: 'date', time: true}
+        imageUrl: {type: 'text', mapsTo: 'image_url'},
+        createdAt: {type: 'date', time: true, mapsTo: 'created_at'},
+        dropAt: {type: 'date', time: true, mapsTo: 'drop_at'}
     }, {
         autoFetch: true,
         validations: {
@@ -21,7 +21,7 @@ module.exports = (db, cb) => {
         },
         hooks: {
             beforeCreate (next) {
-                this.created_at = new Date()
+                this.createdAt = new Date()
                 next()
             }
         }
