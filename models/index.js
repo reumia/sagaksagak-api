@@ -16,6 +16,7 @@ module.exports = function (db, cb) {
     Comics.hasOne('owner', Users, {reverse: 'comics'})
     Cuts.hasOne('owner', Users, {reverse: 'cuts'})
     Cuts.hasOne('comic', Comics, {reverse: 'cuts'})
+    Cuts.hasOne('parent', Cuts, {reverse: 'cuts'})
     LikesUser.hasOne('target', Users, {reverse: 'likes'})
     LikesUser.hasOne('user', Users, {reverse: 'likeUsers'})
     LikesComic.hasOne('target', Comics, {reverse: 'likes'})
