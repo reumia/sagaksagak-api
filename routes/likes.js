@@ -3,21 +3,22 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* ADD LIKE USER */
-router.post('/user/:id', async (req, res) => {
+/* ADD LIKE */
+router.post('/:type/:id', async (req, res) => {
     try {
         const targetId = req.params.id
+        const targetType = req.params.type
         const userId = req.session.userId
-        const LikesUser = req.db.models.likes_user
-        console.log(`LIKE USER ${targetId}`)
+        const TargetModel = req.db.models[`likes_${targetType}`]
+        console.log(`ADD LIKE ${targetType.toUpperCase()} ${targetId}`)
 
         // 로그인 여부 검사
         if (Boolean(userId) === false) throw new Error('NOT_AUTHORIZED')
         // 존재여부 검사
-        const exists = await LikesUser.existsAsync({ user_id: userId })
+        const exists = await TargetModel.existsAsync({ user_id: userId })
         if (exists) throw new Error('ALREADY_EXISTS')
         // 생성
-        const like = await LikesUser.createAsync({
+        const like = await TargetModel.createAsync({
             targetId: parseInt(targetId, 10),
             userId: parseInt(userId, 10) })
 
@@ -33,14 +34,15 @@ router.post('/user/:id', async (req, res) => {
     }
 })
 
-/* DELETE LIKE USER */
-router.delete('/user/:id', async (req, res) => {
+/* DELETE LIKE */
+router.delete('/:type/:id', async (req, res) => {
     try {
         const targetId = req.params.id
-        const LikesUser = req.db.models.likes_user
-        console.log(`LIKE ${targetId}`)
+        const targetType = req.params.type
+        const TargetModel = req.db.models[`likes_${targetType}`]
+        console.log(`DELETE LIKE ${targetType.toUpperCase()} ${targetId}`)
 
-        const like = await LikesUser.oneAsync({ targetId: targetId })
+        const like = await TargetModel.oneAsync({ targetId: targetId })
         await like.removeAsync()
 
         res.status(200).json(like)
