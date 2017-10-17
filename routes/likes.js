@@ -3,7 +3,7 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* LIKE USER */
+/* ADD LIKE USER */
 router.post('/user/:id', async (req, res) => {
     try {
         const targetId = req.params.id
@@ -17,7 +17,9 @@ router.post('/user/:id', async (req, res) => {
         const exists = await LikesUser.existsAsync({ user_id: userId })
         if (exists) throw new Error('ALREADY_EXISTS')
         // 생성
-        const like = await LikesUser.createAsync({ targetId: targetId, userId: userId })
+        const like = await LikesUser.createAsync({
+            targetId: parseInt(targetId, 10),
+            userId: parseInt(userId, 10) })
 
         res.status(200).json(like)
     }
@@ -31,17 +33,17 @@ router.post('/user/:id', async (req, res) => {
     }
 })
 
-/* UNLIKE USER */
+/* DELETE LIKE USER */
 router.delete('/user/:id', async (req, res) => {
     try {
-        const targetId = req.body.id
+        const targetId = req.params.id
         const LikesUser = req.db.models.likes_user
         console.log(`LIKE ${targetId}`)
 
-        const like = await LikesUser.findAsync({ targetId: targetId })
+        const like = await LikesUser.oneAsync({ targetId: targetId })
         await like.removeAsync()
 
-        res.status(200).send()
+        res.status(200).json(like)
     }
     catch(err) {
         console.log(err)
