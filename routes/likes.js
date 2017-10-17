@@ -14,7 +14,7 @@ router.post('/user/:id', async (req, res) => {
         // 로그인 여부 검사
         if (Boolean(userId) === false) throw new Error('NOT_AUTHORIZED')
         // 존재여부 검사
-        const exists = await LikesUser.existsAsync({ userId: userId })
+        const exists = await LikesUser.existsAsync({ user_id: userId })
         if (exists) throw new Error('ALREADY_EXISTS')
         // 생성
         const like = await LikesUser.createAsync({ targetId: targetId, userId: userId })
