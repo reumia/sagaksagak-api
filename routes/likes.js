@@ -10,12 +10,12 @@ router.post('/:type/:id', async (req, res) => {
         const targetType = req.params.type
         const userId = req.session.userId
         const TargetModel = req.db.models[`likes_${targetType}`]
-        console.log(`ADD LIKE ${targetType.toUpperCase()} ${targetId}`)
+        console.log(`USER ${userId} : ADD LIKE ${targetType.toUpperCase()} ${targetId}`)
 
         // 로그인 여부 검사
         if (Boolean(userId) === false) throw new Error('NOT_AUTHORIZED')
         // 존재여부 검사
-        const exists = await TargetModel.existsAsync({ user_id: userId })
+        const exists = await TargetModel.existsAsync({ target_id: targetId, user_id: userId })
         if (exists) throw new Error('ALREADY_EXISTS')
         // 생성
         const like = await TargetModel.createAsync({
@@ -37,12 +37,13 @@ router.post('/:type/:id', async (req, res) => {
 /* DELETE LIKE */
 router.delete('/:type/:id', async (req, res) => {
     try {
+        const userId = req.session.userId
         const targetId = req.params.id
         const targetType = req.params.type
         const TargetModel = req.db.models[`likes_${targetType}`]
-        console.log(`DELETE LIKE ${targetType.toUpperCase()} ${targetId}`)
+        console.log(`USER ${userId} : DELETE LIKE ${targetType.toUpperCase()} ${targetId}`)
 
-        const like = await TargetModel.oneAsync({ targetId: targetId })
+        const like = await TargetModel.oneAsync({ targetId: targetId, userId: userId })
         await like.removeAsync()
 
         res.status(200).json(like)
