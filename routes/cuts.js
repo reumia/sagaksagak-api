@@ -12,8 +12,9 @@ router.post('/', async (req, res) => {
 
         console.log(`ADD Cut for 'Comic:${comicId}' & 'Cut:${parentId}'`)
 
-        const hasInitialCut = await Cuts.existsAsync({parent_id: null})
-        if (hasInitialCut) throw new Error('INITIAL_CUT_ALREADY_EXISTS')
+        const isInitial = parentId === null
+        const hasInitialCut = await Cuts.existsAsync({comic_id: comicId, parent_id: null})
+        if (isInitial && hasInitialCut) throw new Error('INITIAL_CUT_ALREADY_EXISTS')
 
         const cut = await Cuts.createAsync({
             status: 'OPENED',
