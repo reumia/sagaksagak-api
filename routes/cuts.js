@@ -6,16 +6,22 @@ require('./middlewares')(router)
 /* ADD CUT */
 router.post('/', async (req, res) => {
     try {
-        console.log(`ADD New Cut.`)
-
+        const comicId = req.body.comicId
+        const parentId = req.body.parentId ? req.body.parentId : null
         const Cuts = req.db.models.cuts
+
+        console.log(`ADD Cut for 'Comic:${comicId}' & 'Cut:${parentId}'`)
+
+        const hasInitialCut = await Cuts.existsAsync({parentId: null})
+        if (hasInitialCut) throw new Error('INITIAL_CUT_ALREADY_EXISTS')
+
         const cut = await Cuts.createAsync({
             status: 'OPENED',
             title: req.body.title,
             imageUrl: req.body.imageUrl,
-            comicId: req.body.comicId,
+            comicId: comicId,
             ownerId: req.session.userId,
-            parentId: req.body.parentId ? req.body.parentId : null
+            parentId: parentId
         })
 
         res.status(200).json(cut)
