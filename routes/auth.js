@@ -25,8 +25,8 @@ router.post('/sign-up', async(req, res) => {
         res.status(200).json(result)
     }
     catch(err) {
-        console.warn(err.literalCode)
-        res.status(500).json(err.literalCode)
+        console.warn(err
+        res.status(500).json(err.message)
     }
 })
 
@@ -50,8 +50,8 @@ router.post('/sign-in', async(req, res) => {
         res.status(200).json(user)
     }
     catch(err) {
-        console.warn(err.literalCode)
-        res.status(500).json(err.literalCode)
+        console.warn(err)
+        res.status(500).json(err.message)
     }
 })
 
@@ -69,8 +69,8 @@ router.post('/sign-out', async(req, res) => {
         res.status(200).send()
     }
     catch(err) {
-        console.warn(err.literalCode)
-        res.status(500).json(err.literalCode)
+        console.warn(err)
+        res.status(500).json(err.message)
     }
 })
 
