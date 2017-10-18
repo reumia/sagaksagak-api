@@ -7,12 +7,12 @@ require('./middlewares')(router)
 router.post('/', async (req, res) => {
     try {
         const comicId = req.body.comicId
-        const parentId = req.body.parentId ? req.body.parentId : null
+        const parentId = req.body.parentId
         const Cuts = req.db.models.cuts
 
         console.log(`ADD Cut for 'Comic:${comicId}' & 'Cut:${parentId}'`)
 
-        const hasInitialCut = await Cuts.existsAsync({parentId: null})
+        const hasInitialCut = await Cuts.existsAsync({parent_id: null})
         if (hasInitialCut) throw new Error('INITIAL_CUT_ALREADY_EXISTS')
 
         const cut = await Cuts.createAsync({
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
     catch(err) {
         let errorCode = null
         if (err.message === 'required') errorCode = `REQUIRED_${err.property.toUpperCase()}`
-        else errorCode = err.literalCode
+        else errorCode = err.message
 
         console.log(err)
         res.status(500).json(errorCode)
