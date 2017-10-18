@@ -25,7 +25,7 @@ router.post('/sign-up', async(req, res) => {
         res.status(200).json(result)
     }
     catch(err) {
-        console.warn(err
+        console.warn(err)
         res.status(500).json(err.message)
     }
 })
