@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         const parentId = req.body.parentId
         const Cuts = req.db.models.cuts
 
-        console.log(`ADD Cut for 'Comic:${comicId}' & 'Cut:${parentId}'`)
+        console.log(`Comic ${comicId}' & 'Cut ${parentId} - ADD Cut`)
 
         const isInitial = parentId === null
         const hasInitialCut = await Cuts.existsAsync({comic_id: comicId, parent_id: null})
@@ -36,6 +36,86 @@ router.post('/', async (req, res) => {
 
         console.log(err)
         res.status(500).json(errorCode)
+    }
+})
+
+/**
+ * GET CUT BY ID
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const cutId = req.params.id
+        const Cuts = req.db.models.cuts
+
+        console.log(`Cut ${cutId} : Get Parent Cut`)
+
+        const cut = await Cuts.getAsync(cutId)
+
+        res.status(200).json(cut)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err.message)
+    }
+})
+
+/**
+ * GET SIBLING CUTS BY ID
+ */
+router.get('/:id/siblings', async (req, res) => {
+    try {
+        const cutId = req.params.id
+        const Cuts = req.db.models.cuts
+
+        console.log(`Cut ${cutId} : Get Siblings`)
+
+        const cut = await Cuts.getAsync(cutId)
+        const siblingCuts = await Cuts.findAsync({ parentId: cut.parentId })
+
+        res.status(200).json(siblingCuts)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err.message)
+    }
+})
+
+/**
+ * GET PARENT CUT BY ID
+ */
+router.get('/:id/parent', async (req, res) => {
+    try {
+        const cutId = req.params.id
+        const Cuts = req.db.models.cuts
+
+        console.log(`Cut ${cutId} : Get Parent Cut`)
+
+        const cut = await Cuts.getAsync(cutId)
+
+        res.status(200).json(cut.parent)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err.message)
+    }
+})
+
+/**
+ * GET POPULAR CHILD CUT BY ID
+ * TODO : 좋아요가 가장많은 자식하나 가져오기??
+ */
+router.get('/:id/child', async (req, res) => {
+    try {
+        const cutId = req.params.id
+        const Cuts = req.db.models.cuts
+
+        console.log(`Cut ${cutId} : Get Child Cut`)
+
+        res.status(200).json()
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err.message)
     }
 })
 

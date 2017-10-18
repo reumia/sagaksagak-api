@@ -6,6 +6,8 @@ module.exports = (db, cb) => {
         imageUrl: {type: 'text', mapsTo: 'image_url', required: true},
         createdAt: {type: 'date', time: true, mapsTo: 'created_at'}
     }, {
+        autoFetch: true,
+        cacheFetch: true,
         hooks: {
             beforeCreate: function () {
                 this.createdAt = new Date()

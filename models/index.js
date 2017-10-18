@@ -16,7 +16,7 @@ module.exports = function (db, cb) {
     Comics.hasOne('owner', Users, {reverse: 'comics', field: 'ownerId', mapsTo: 'owner_id', required: true})
     Cuts.hasOne('owner', Users, {reverse: 'cuts', field: 'ownerId', mapsTo: 'owner_id', required: true})
     Cuts.hasOne('comic', Comics, {reverse: 'cuts', field: 'comicId', mapsTo: 'comic_id', required: true})
-    Cuts.hasOne('parent', Cuts, {reverse: 'cuts', field: 'parentId', mapsTo: 'parent_id'})
+    Cuts.hasOne('parent', Cuts, {reverse: 'children', field: 'parentId', mapsTo: 'parent_id'})
     LikesUser.hasOne('target', Users, {reverse: 'likes', field: 'targetId', mapsTo: 'target_id', required: true})
     LikesUser.hasOne('user', Users, {reverse: 'likeUsers', field: 'userId', mapsTo: 'user_id', required: true})
     LikesComic.hasOne('target', Comics, {reverse: 'likes', field: 'targetId', mapsTo: 'target_id', required: true})
