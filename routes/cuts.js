@@ -3,7 +3,9 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* ADD CUT */
+/**
+ * ADD CUT
+ */
 router.post('/', async (req, res) => {
     try {
         const comicId = req.body.comicId

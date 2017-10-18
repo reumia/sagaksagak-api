@@ -9,8 +9,9 @@ const TYPE_COMIC = upload.single('file')
 router.use(TYPE_COMIC)
 require('./middlewares')(router)
 
-
-// Dummy Upload API
+/**
+ * File Upload
+ */
 router.post('/', function(req, res) {
     try {
         console.log('File Upload')

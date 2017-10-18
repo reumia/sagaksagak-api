@@ -4,7 +4,9 @@ import bcrypt from 'bcrypt'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* SIGN UP */
+/**
+ * SIGN UP
+ */
 router.post('/sign-up', async(req, res) => {
     try {
         console.log('Sign Up', req.body.email)
@@ -30,7 +32,9 @@ router.post('/sign-up', async(req, res) => {
     }
 })
 
-/* SIGN IN */
+/**
+ * SIGN IN
+ */
 router.post('/sign-in', async(req, res) => {
     try {
         const Users = req.db.models.users
@@ -55,7 +59,9 @@ router.post('/sign-in', async(req, res) => {
     }
 })
 
-/* SIGN OUT */
+/**
+ * SIGN OUT
+ */
 router.post('/sign-out', async(req, res) => {
     try {
         console.log('Sign Out')

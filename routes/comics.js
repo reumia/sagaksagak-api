@@ -3,7 +3,9 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* GET LATEST COMICS */
+/**
+ * GET LATEST COMICS
+ */
 router.get('/latest', async (req, res) => {
     try {
         console.log(`GET Latest 8 Comics.`)
@@ -19,8 +21,10 @@ router.get('/latest', async (req, res) => {
     }
 })
 
-// TODO : 인기 코믹
-/* GET POPULAR COMICS */
+/**
+ * GET POPULAR COMICS
+ * TODO : 인기 코믹
+ */
 router.get('/popular', async (req, res) => {
     try {
         console.log(`GET Popular 8 Comics.`)
@@ -36,7 +40,9 @@ router.get('/popular', async (req, res) => {
     }
 })
 
-/* GET COMIC BY ID */
+/**
+ * GET COMIC BY ID
+ */
 router.get('/:id', async (req, res) => {
     try {
         console.log(`GET Comic ${req.params.id}.`)
@@ -56,7 +62,9 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-/* ADD COMICS */
+/**
+ * ADD COMICS
+ */
 router.post('/', async (req, res) => {
     try {
         console.log(`ADD New Comic.`)
@@ -82,7 +90,9 @@ router.post('/', async (req, res) => {
     }
 })
 
-/* UPDATE COMICS */
+/**
+ * UPDATE COMICS
+ */
 router.put('/:id/update', async (req, res) => {
     try {
         console.log(`Update Comic ${req.params.id}.`)

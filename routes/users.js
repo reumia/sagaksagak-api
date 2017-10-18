@@ -3,7 +3,9 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* GET ALL USERS */
+/**
+ * GET ALL USERS
+ */
 router.get('/', (req, res) => {
     console.log(`GET All Opened Users.`)
 
@@ -17,7 +19,9 @@ router.get('/', (req, res) => {
     })
 })
 
-/* GET USER BY SESSION */
+/**
+ * GET USER BY SESSION
+ */
 router.get('/@me', async(req, res) => {
     try {
         console.log(`GET Current User.`)
@@ -36,7 +40,9 @@ router.get('/@me', async(req, res) => {
     }
 })
 
-/* GET USER BY ID */
+/**
+ * GET USER BY ID
+ */
 router.get('/:id', async(req, res) => {
     try {
         console.log(`GET User ${req.params.id}.`)
@@ -53,7 +59,9 @@ router.get('/:id', async(req, res) => {
     }
 })
 
-/* UPDATE USER */
+/**
+ * UPDATE USER
+ */
 router.put('/:id/update', async(req, res) => {
     try {
         console.log(`Update User ${req.params.id}.`)

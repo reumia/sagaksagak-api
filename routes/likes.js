@@ -3,7 +3,9 @@ import express from 'express'
 const router = express.Router()
 require('./middlewares')(router)
 
-/* ADD LIKE */
+/**
+ * ADD LIKE
+ */
 router.post('/:type/:id', async (req, res) => {
     try {
         const targetId = req.params.id
@@ -34,7 +36,9 @@ router.post('/:type/:id', async (req, res) => {
     }
 })
 
-/* DELETE LIKE */
+/**
+ * DELETE LIKE
+ */
 router.delete('/:type/:id', async (req, res) => {
     try {
         const userId = req.session.userId
