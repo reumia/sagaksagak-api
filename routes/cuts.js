@@ -91,8 +91,9 @@ router.get('/:id/parent', async (req, res) => {
         console.log(`Cut ${cutId} : Get Parent Cut`)
 
         const cut = await Cuts.getAsync(cutId)
+        const parentCut = await cut.getParentAsync()
 
-        res.status(200).json(cut.parent)
+        res.status(200).json(parentCut)
     }
     catch (err) {
         console.log(err)
@@ -101,17 +102,19 @@ router.get('/:id/parent', async (req, res) => {
 })
 
 /**
- * GET POPULAR CHILD CUT BY ID
+ * GET CHILDREN CUTS BY ID
  * TODO : 좋아요가 가장많은 자식하나 가져오기??
  */
-router.get('/:id/child', async (req, res) => {
+router.get('/:id/children', async (req, res) => {
     try {
         const cutId = req.params.id
         const Cuts = req.db.models.cuts
 
         console.log(`Cut ${cutId} : Get Child Cut`)
 
-        res.status(200).json()
+        const childrenCuts = await Cuts.findAsync({parentId: cutId})
+
+        res.status(200).json(childrenCuts)
     }
     catch (err) {
         console.log(err)

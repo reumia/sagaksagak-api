@@ -7,10 +7,12 @@ module.exports = (db, cb) => {
         createdAt: {type: 'date', time: true, mapsTo: 'created_at'}
     }, {
         autoFetch: true,
-        cacheFetch: true,
         hooks: {
-            beforeCreate: function () {
+            beforeCreate () {
                 this.createdAt = new Date()
+            },
+            afterAutoFetch () {
+                if (this.likes) this.likesCount = this.likes.length
             }
         }
     })
