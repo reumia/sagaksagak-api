@@ -49,12 +49,8 @@ router.get('/:id', async (req, res) => {
 
         const Comics = req.db.models.comics
         const comic = await Comics.getAsync(req.params.id)
-        const tree = {} // TODO : TREE
 
-        res.status(200).json({
-            ...comic,
-            tree: tree
-        })
+        res.status(200).json(comic)
     }
     catch(err) {
         console.warn(err.literalCode)
