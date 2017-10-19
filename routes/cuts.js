@@ -1,4 +1,5 @@
 import express from 'express'
+import _ from 'lodash'
 
 const router = express.Router()
 require('./middlewares')(router)
@@ -103,18 +104,22 @@ router.get('/:id/parent', async (req, res) => {
 
 /**
  * GET CHILDREN CUTS BY ID
- * TODO : 좋아요가 가장많은 자식하나 가져오기??
  */
-router.get('/:id/children', async (req, res) => {
+router.get('/:id/children', (req, res) => {
     try {
         const cutId = req.params.id
         const Cuts = req.db.models.cuts
 
-        console.log(`Cut ${cutId} : Get Child Cut`)
+        console.log(`Cut ${cutId} : Get Children Cuts`)
 
-        const childrenCuts = await Cuts.findAsync({parentId: cutId})
-
-        res.status(200).json(childrenCuts)
+        Cuts.find({parentId: cutId})
+            .each()
+            .sort((before, after) => {
+                return before.likes < after.likes
+            })
+            .get(cuts => {
+                res.status(200).json(cuts[0])
+            })
     }
     catch (err) {
         console.log(err)
